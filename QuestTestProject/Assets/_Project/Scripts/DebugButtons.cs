@@ -59,6 +59,7 @@ public class DebugButtons : MonoBehaviour
             txt += $"\n";
             txt += $"Oculus_CrossPlatform_SecondaryThumbstickHorizontal {Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal")}\n";
             txt += $"Oculus_CrossPlatform_SecondaryThumbstickVertical {Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical")}\n";
+            txt += $"\n";
             txt += $"Oculus_CrossPlatform_SecondaryThumbstick {Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstick")}\n";
             txt += $" -- BUTTON {Input.GetButton("Oculus_CrossPlatform_SecondaryThumbstick")}\n";
             txt += $" -- BUTTON UP {Input.GetButtonUp("Oculus_CrossPlatform_SecondaryThumbstick")}\n";
