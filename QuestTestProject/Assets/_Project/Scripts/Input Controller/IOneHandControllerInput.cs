@@ -13,4 +13,8 @@ public interface IOneHandControllerInput {
     IControllerStickInput stick { get; }
 
     void CheckInput();
+
+    void SetKeys(string indexTriggerKey, string grabTriggerKey,
+                string mainButton1Key, string mainButton2Key,
+                string stickKey, string stickHKey, string stickVKey);
 }

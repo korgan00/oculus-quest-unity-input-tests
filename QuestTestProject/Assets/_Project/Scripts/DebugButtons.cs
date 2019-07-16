@@ -55,7 +55,13 @@ public class DebugButtons : MonoBehaviour
             txt += $"Oculus_CrossPlatform_Button2 {Input.GetAxis("Oculus_CrossPlatform_Button2")}\n";
             txt += $"\n";
             txt += $"Oculus_CrossPlatform_SecondaryIndexTrigger {Input.GetAxis("Oculus_CrossPlatform_SecondaryIndexTrigger")}\n";
+            txt += $" -- BUTTON {Input.GetButton("Oculus_CrossPlatform_SecondaryIndexTrigger")}\n";
+            txt += $" -- BUTTON UP {Input.GetButtonUp("Oculus_CrossPlatform_SecondaryIndexTrigger")}\n";
+            txt += $" -- BUTTON DOWN {Input.GetButtonDown("Oculus_CrossPlatform_SecondaryIndexTrigger")}\n";
             txt += $"Oculus_CrossPlatform_SecondaryHandTrigger {Input.GetAxis("Oculus_CrossPlatform_SecondaryHandTrigger")}\n";
+            txt += $" -- BUTTON {Input.GetButton("Oculus_CrossPlatform_SecondaryHandTrigger")}\n";
+            txt += $" -- BUTTON UP {Input.GetButtonUp("Oculus_CrossPlatform_SecondaryHandTrigger")}\n";
+            txt += $" -- BUTTON DOWN {Input.GetButtonDown("Oculus_CrossPlatform_SecondaryHandTrigger")}\n";
             txt += $"\n";
             txt += $"Oculus_CrossPlatform_SecondaryThumbstickHorizontal {Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal")}\n";
             txt += $"Oculus_CrossPlatform_SecondaryThumbstickVertical {Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical")}\n";

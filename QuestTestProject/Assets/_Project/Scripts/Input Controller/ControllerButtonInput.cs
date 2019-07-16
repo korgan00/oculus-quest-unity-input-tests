@@ -10,25 +10,29 @@ public class ControllerButtonInput : IControllerButtonInput {
     protected string _inputKey;
     
     [SerializeField]
-    protected UnityEvent _onPress = new UnityEvent();
+    protected UnityEvent _onPress;
     public UnityEvent OnPress => _onPress;
 
     [SerializeField]
-    protected UnityEvent _onRelease = new UnityEvent();
+    protected UnityEvent _onRelease;
     public UnityEvent OnRelease => _onRelease;
 
     [SerializeField]
-    protected UnityEvent _onPressed = new UnityEvent();
+    protected UnityEvent _onPressed;
     public UnityEvent OnPressed => _onPressed;
 
 
     public ControllerButtonInput(string inKey) {
-        _inputKey = inKey;
+        SetKey(inKey);
     }
 
     public virtual void CheckInput() {
-        if (Input.GetButton(_inputKey)) _onPressed.Invoke();
-        if (Input.GetButtonDown(_inputKey)) _onPress.Invoke();
-        if (Input.GetButtonUp(_inputKey)) _onRelease.Invoke();
+        if (Input.GetButton(_inputKey)) _onPressed?.Invoke();
+        if (Input.GetButtonDown(_inputKey)) _onPress?.Invoke();
+        if (Input.GetButtonUp(_inputKey)) _onRelease?.Invoke();
+    }
+
+    public void SetKey(string key) {
+        _inputKey = key;
     }
 }

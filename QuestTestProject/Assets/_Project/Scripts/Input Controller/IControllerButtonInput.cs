@@ -10,5 +10,5 @@ public interface IControllerButtonInput {
     UnityEvent OnPressed { get; }
     
     void CheckInput();
-
+    void SetKey(string key);
 }

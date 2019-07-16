@@ -38,21 +38,25 @@ public class OculusInputManager : MonoBehaviour {
     public static IOneHandControllerInput rightHand => _instance?.rightHandController;
     
     private void Awake() {
-        _rightHand = new OneHandControllerInput("Oculus_CrossPlatform_SecondaryIndexTrigger",
-                                                "Oculus_CrossPlatform_SecondaryHandTrigger",
-                                                "Oculus_CrossPlatform_Button1",
-                                                "Oculus_CrossPlatform_Button2",
-                                                "Oculus_CrossPlatform_SecondaryThumbstick",
-                                                "Oculus_CrossPlatform_SecondaryThumbstickHorizontal",
-                                                "Oculus_CrossPlatform_SecondaryThumbstickVertical");
+        _rightHand = _rightHand ?? new OneHandControllerInput("", "", "", "", "", "", "");
 
-        _leftHand = new OneHandControllerInput( "Oculus_CrossPlatform_PrimaryIndexTrigger",
-                                                "Oculus_CrossPlatform_PrimaryHandTrigger",
-                                                "Oculus_CrossPlatform_Button3",
-                                                "Oculus_CrossPlatform_Button4",
-                                                "Oculus_CrossPlatform_PrimaryThumbstick",
-                                                "Oculus_CrossPlatform_PrimaryThumbstickHorizontal",
-                                                "Oculus_CrossPlatform_PrimaryThumbstickVertical");
+        _rightHand.SetKeys("Oculus_CrossPlatform_SecondaryIndexTrigger",
+                            "Oculus_CrossPlatform_SecondaryHandTrigger",
+                            "Oculus_CrossPlatform_Button1",
+                            "Oculus_CrossPlatform_Button2",
+                            "Oculus_CrossPlatform_SecondaryThumbstick",
+                            "Oculus_CrossPlatform_SecondaryThumbstickHorizontal",
+                            "Oculus_CrossPlatform_SecondaryThumbstickVertical");
+
+        _leftHand = _leftHand ?? new OneHandControllerInput("", "", "", "", "", "", "");
+
+        _leftHand.SetKeys("Oculus_CrossPlatform_PrimaryIndexTrigger",
+                            "Oculus_CrossPlatform_PrimaryHandTrigger",
+                            "Oculus_CrossPlatform_Button3",
+                            "Oculus_CrossPlatform_Button4",
+                            "Oculus_CrossPlatform_PrimaryThumbstick",
+                            "Oculus_CrossPlatform_PrimaryThumbstickHorizontal",
+                            "Oculus_CrossPlatform_PrimaryThumbstickVertical");
 
         _instance = this;
 
