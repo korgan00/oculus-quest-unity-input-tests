@@ -8,8 +8,12 @@ public class Hand : MonoBehaviour
     public Handgrip currentGrip { get; private set; }
     private Handgrip availableGrip { get; set; }
 
+    public Quaternion upRotation => transform.rotation;
+    public Quaternion forwardRotation => transform.rotation * Quaternion.Euler(90, 0, 0);
+    public Quaternion handlerRotation => transform.rotation * Quaternion.Euler(45, 0, 0);
 
-    private void OnTriggerEnter(Collider other) {
+
+    private void OnTriggerStay(Collider other) {
         Handgrip triggeredHandGrip = other.GetComponentInParent<Handgrip>();
         if (triggeredHandGrip) {
             availableGrip = triggeredHandGrip;
@@ -25,12 +29,16 @@ public class Hand : MonoBehaviour
         }
     }
 
+    private void Update() {
+        DebugText.tmp.text += $"HAND! {name}:: available: {(availableGrip ? availableGrip.name : "null")} ||  current: {(currentGrip ? currentGrip.name : "null")}\n";
+    }
+
     [ContextMenu("Pick")]
     public void Pick() {
         GetComponentInChildren<MeshRenderer>().material.color = new Color(Random.value, Random.value, Random.value);
         if (availableGrip && !availableGrip.gripHand) {
             currentGrip = availableGrip;
-            availableGrip.gripHand = this;
+            currentGrip.gripHand = this;
         }
     }
 

@@ -11,7 +11,7 @@ public class DebugText : MonoBehaviour {
     }
 
     public void Update() {
-        //tmp.text = "";
+        tmp.text = "";
     }
 
 }
