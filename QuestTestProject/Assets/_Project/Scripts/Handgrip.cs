@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Handgrip : MonoBehaviour {
 
+    public int bottomTopOrder = 0;
     public Hand gripHand;
 
     private void Update() {

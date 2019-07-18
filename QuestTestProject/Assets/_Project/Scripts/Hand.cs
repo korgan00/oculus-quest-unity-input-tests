@@ -25,17 +25,25 @@ public class Hand : MonoBehaviour
         Handgrip triggeredOutHandGrip = other.GetComponentInParent<Handgrip>();
         if (triggeredOutHandGrip) {
             availableGrip = null;
-            Debug.Log($"NOT : {availableGrip?.name}");
         }
     }
 
+    /*
     private void Update() {
         DebugText.tmp.text += $"HAND! {name}:: available: {(availableGrip ? availableGrip.name : "null")} ||  current: {(currentGrip ? currentGrip.name : "null")}\n";
     }
 
+    private void Start() {
+        if (name.Contains("Left")) {
+            PickBottom();
+        } else if (name.Contains("Right")) {
+            PickTop();
+        }
+    }
+    */
+
     [ContextMenu("Pick")]
     public void Pick() {
-        GetComponentInChildren<MeshRenderer>().material.color = new Color(Random.value, Random.value, Random.value);
         if (availableGrip && !availableGrip.gripHand) {
             currentGrip = availableGrip;
             currentGrip.gripHand = this;
@@ -44,7 +52,6 @@ public class Hand : MonoBehaviour
 
     [ContextMenu("Release")]
     public void Release() {
-        GetComponentInChildren<MeshRenderer>().material.color = Color.black;
         if (currentGrip) {
             if (currentGrip.gripHand == this) {
                 currentGrip.gripHand = null;
@@ -52,5 +59,17 @@ public class Hand : MonoBehaviour
             currentGrip = null;
         }
     }
+    /*
+    [ContextMenu("PickTop")]
+    public void PickTop() {
+        currentGrip = GameObject.Find("TopGrab").GetComponent<Handgrip>();
+        currentGrip.gripHand = this;
+    }
 
+    [ContextMenu("PickBottom")]
+    public void PickBottom() {
+        currentGrip = GameObject.Find("BottomGrab").GetComponent<Handgrip>();
+        currentGrip.gripHand = this;
+    }
+    */
 }

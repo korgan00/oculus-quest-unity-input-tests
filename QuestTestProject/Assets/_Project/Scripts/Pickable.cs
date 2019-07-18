@@ -10,6 +10,7 @@ public class Pickable : MonoBehaviour {
 
     private Handgrip[] _handgrips;
     private Rigidbody _rigidbody;
+    public float maxDistance;
     
     public void Awake() {
         _handgrips = GetComponentsInChildren<Handgrip>();
@@ -17,38 +18,41 @@ public class Pickable : MonoBehaviour {
     }
 
     private void Update() {
-        List<Handgrip> activeGrips = _handgrips.Where(hg => hg.gripHand != null).ToList();
+        List<Handgrip> activeGrips = _handgrips.Where(hg => hg.gripHand != null).OrderBy(a => a.bottomTopOrder).ToList();
 
         ApplyHandgrips(activeGrips);
     }
 
     private void ApplyHandgrips(List<Handgrip> activeGrips) {
         _rigidbody.isKinematic = activeGrips.Count > 0;
+        const int TOP = 1;
+        const int BOTTOM = 0;
 
-        DebugText.tmp.text += $"PICKABLE! Handgrips: {activeGrips.Count}\n";
         if (activeGrips.Count == 0) {
             return;
+
         } else if (activeGrips.Count == 1) {
             transform.rotation = activeGrips[0].gripHand.handlerRotation * (transform.rotation * Quaternion.Inverse(activeGrips[0].transform.rotation));
             transform.position = activeGrips[0].gripHand.transform.position + transform.position - activeGrips[0].transform.position;
+
         } else if (activeGrips.Count >= 2) {
-            Vector3 pos1 = activeGrips[1].gripHand.transform.position;
-            Vector3 pos2 = activeGrips[0].gripHand.transform.position;
-            DebugText.tmp.text += $"{pos1} :: {pos2}\n";
+            Vector3 posBottom = activeGrips[BOTTOM].gripHand.transform.position;
+            Vector3 posTop = activeGrips[TOP].gripHand.transform.position;
 
-            Vector3 xyz = Vector3.Cross(pos1, pos2);
-            float w = Vector3.Distance(pos1, pos2) * Vector3.Dot(pos1, pos2);
-            Quaternion q = new Quaternion(xyz.x, xyz.y, xyz.z, w);
-            q.Normalize();
-            DebugText.tmp.text += $"Quaternion calculado\n";
+            Vector3 desiredBottomPosition = posBottom + transform.position - activeGrips[BOTTOM].transform.position;
+            Vector3 desiredTopPosition = posTop + transform.position - activeGrips[TOP].transform.position;
+            bool shouldBreak = Vector3.SqrMagnitude(desiredBottomPosition - desiredTopPosition) > (maxDistance * maxDistance);
 
-            transform.rotation = q * (transform.rotation * Quaternion.Inverse(activeGrips[0].transform.rotation));
-            DebugText.tmp.text += $"Quaternion aplicado\n";
-            transform.position = pos1 + transform.position - activeGrips[1].transform.position;
-            DebugText.tmp.text += $"transform.position: {transform.position}\n";
+            if (shouldBreak) {
+                activeGrips[TOP].gripHand.Release();
+                return;
+            }
 
-            //transform.rotation = activeGrips[0].gripHand.transform.rotation * (transform.rotation * Quaternion.Inverse(activeGrips[0].transform.rotation));
-            //transform.position = activeGrips[0].gripHand.transform.position + transform.position - activeGrips[0].transform.position;
+            Vector3 v = (posBottom - posTop).normalized;
+            Quaternion q = Quaternion.LookRotation(v);
+
+            transform.rotation = q * Quaternion.AngleAxis(90, Vector3.left);
+            transform.position = (desiredBottomPosition + desiredTopPosition) / 2;
         }
 
     }

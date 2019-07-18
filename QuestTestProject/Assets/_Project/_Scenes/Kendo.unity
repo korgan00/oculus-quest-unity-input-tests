@@ -1202,6 +1202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8effefede5d5b4181d77926d39d070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bottomTopOrder: 0
   gripHand: {fileID: 0}
 --- !u!135 &1179775782
 SphereCollider:
@@ -1946,6 +1947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8effefede5d5b4181d77926d39d070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bottomTopOrder: 1
   gripHand: {fileID: 0}
 --- !u!135 &1564318726
 SphereCollider:
@@ -2759,6 +2761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0456a02b1b244c64bac793ce35f4cb28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDistance: 0.25
 --- !u!54 &1916628896
 Rigidbody:
   m_ObjectHideFlags: 0
