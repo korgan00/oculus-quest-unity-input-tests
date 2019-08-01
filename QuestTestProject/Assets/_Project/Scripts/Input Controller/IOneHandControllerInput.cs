@@ -7,8 +7,8 @@ public interface IOneHandControllerInput {
     IControllerSensitiveButtonInput indexTrigger { get; }
     IControllerSensitiveButtonInput grabTrigger { get; }
 
-    IControllerButtonInput mainButton1 { get; }
-    IControllerButtonInput mainButton2 { get; }
+    IControllerButtonInput mainButtonYB { get; }
+    IControllerButtonInput mainButtonXA { get; }
 
     IControllerStickInput stick { get; }
 

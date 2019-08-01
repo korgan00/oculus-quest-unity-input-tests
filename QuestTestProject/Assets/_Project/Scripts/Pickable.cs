@@ -17,7 +17,7 @@ public class Pickable : MonoBehaviour {
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         List<Handgrip> activeGrips = _handgrips.Where(hg => hg.gripHand != null).OrderBy(a => a.bottomTopOrder).ToList();
 
         ApplyHandgrips(activeGrips);
@@ -25,6 +25,8 @@ public class Pickable : MonoBehaviour {
 
     private void ApplyHandgrips(List<Handgrip> activeGrips) {
         _rigidbody.isKinematic = activeGrips.Count > 0;
+        _rigidbody.interpolation = activeGrips.Count > 0 ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
+        _rigidbody.collisionDetectionMode = activeGrips.Count > 0 ? CollisionDetectionMode.ContinuousSpeculative : CollisionDetectionMode.Discrete;
         const int TOP = 1;
         const int BOTTOM = 0;
 
@@ -32,8 +34,10 @@ public class Pickable : MonoBehaviour {
             return;
 
         } else if (activeGrips.Count == 1) {
-            transform.rotation = activeGrips[0].gripHand.handlerRotation * (transform.rotation * Quaternion.Inverse(activeGrips[0].transform.rotation));
-            transform.position = activeGrips[0].gripHand.transform.position + transform.position - activeGrips[0].transform.position;
+            _rigidbody.MoveRotation(activeGrips[0].gripHand.handlerRotation * (transform.rotation * Quaternion.Inverse(activeGrips[0].transform.rotation)));
+            _rigidbody.MovePosition(activeGrips[0].gripHand.transform.position + transform.position - activeGrips[0].transform.position);
+            //transform.rotation = activeGrips[0].gripHand.handlerRotation * (transform.rotation * Quaternion.Inverse(activeGrips[0].transform.rotation));
+            //transform.position = activeGrips[0].gripHand.transform.position + transform.position - activeGrips[0].transform.position;
 
         } else if (activeGrips.Count >= 2) {
             Vector3 posBottom = activeGrips[BOTTOM].gripHand.transform.position;
@@ -51,8 +55,10 @@ public class Pickable : MonoBehaviour {
             Vector3 v = (posBottom - posTop).normalized;
             Quaternion q = Quaternion.LookRotation(v);
 
-            transform.rotation = q * Quaternion.AngleAxis(90, Vector3.left);
-            transform.position = (desiredBottomPosition + desiredTopPosition) / 2;
+            _rigidbody.MoveRotation(q * Quaternion.AngleAxis(90, Vector3.left));
+            _rigidbody.MovePosition((desiredBottomPosition + desiredTopPosition) / 2);
+            //transform.rotation = q * Quaternion.AngleAxis(90, Vector3.left);
+            //transform.position = (desiredBottomPosition + desiredTopPosition) / 2;
         }
 
     }

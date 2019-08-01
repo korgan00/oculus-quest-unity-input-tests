@@ -59,7 +59,7 @@ public class Hand : MonoBehaviour
             currentGrip = null;
         }
     }
-    /*
+    
     [ContextMenu("PickTop")]
     public void PickTop() {
         currentGrip = GameObject.Find("TopGrab").GetComponent<Handgrip>();
@@ -71,5 +71,5 @@ public class Hand : MonoBehaviour
         currentGrip = GameObject.Find("BottomGrab").GetComponent<Handgrip>();
         currentGrip.gripHand = this;
     }
-    */
+    
 }
